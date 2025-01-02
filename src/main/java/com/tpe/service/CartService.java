@@ -30,7 +30,8 @@ public class CartService implements ZICartService{
             Integer quantity = scanner.nextInt();
             scanner.nextLine();  // Satır sonrasındaki boşluğu temizle
 
-            CartItem cartItem = new CartItem(selectedProduct, quantity, selectedProduct.getPrice());
+            // CartItem oluşturulurken toplam fiyatı hesapla
+            CartItem cartItem = new CartItem(selectedProduct, quantity, selectedProduct.getPrice() * quantity);
             cartItemList.add(cartItem);  // Sepete ürün ekle
 
             String deliveryPrice = cartItem.getPrice() < 500 ? "50" : "0";  // Kargo ücreti hesapla
@@ -122,68 +123,14 @@ public class CartService implements ZICartService{
     }
 
 
-
-    public void giveStar() {
-        System.out.println("Please select the product you want to rate");
-        productService.listProduct();
-        System.out.println("Please enter the product code of the item you want");
-        String productCode = scanner.nextLine();
-        Product selectedProduct = productService.findProductById(productCode);
-        System.out.println("Please rate our product");
-        int star = scanner.nextInt();
-        // Yıldız değeri geçerli bir aralıkta olmalı (1-5 arası)
-        if (star >= 1 && star <= 5) {
-            selectedProduct.getRatingList().add(star);
-            selectedProduct.setRating((selectedProduct.getRatingList().stream().mapToInt(Integer::intValue).sum()) / (selectedProduct.getRatingList().size()));
-            System.out.println("Yıldız verildi: " + star + " yıldız.");
-        } else {
-            System.out.println("Geçersiz yıldız değeri! Lütfen 1 ile 5 arasında bir sayı girin.");
-        }
-    }
-
-    public void addComment() {
-        // Kullanıcıdan yorum yapılacak ürünü seçmesini isteyin
-        System.out.println("Please select the product you want to comment on:");
-        productService.listProduct();  // Ürünleri listele
-        System.out.print("Enter the product code of the item you want: ");
-        String productCode = scanner.nextLine();
-
-        // Seçilen ürün
-        Product selectedProduct = productService.findProductById(productCode);
-
-        // Eğer ürün bulunamazsa
-        if (selectedProduct == null) {
-            System.out.println("The product code you entered does not exist.");
-            return;
-        }
-
-        // Kullanıcıdan yorum al
-        System.out.println("Please enter your comment for the product:");
-        String comment = scanner.nextLine();
-
-        // Yorumun boş olup olmadığını kontrol et
-        if (comment.trim().isEmpty()) {
-            System.out.println("Comment cannot be empty. Please enter a valid comment.");
-            return;
-        }
-
-        // Ürüne yorumu ekle
-        if (selectedProduct.getCommentList() == null) {
-            selectedProduct.setCommentList(new ArrayList<>());
-        }
-        selectedProduct.getCommentList().add(comment);  // Yorum ekle
-
-        // Yorum eklenip eklenmediğini göster
-        System.out.println("Your comment has been added to the product: " + selectedProduct.getProductName());
-    }
-
-    // Sepetteki ürünleri listeleme
     public void listCart(List<CartItem> cartItemList) {
         System.out.println("Items in the cart:");
         for (CartItem item : cartItemList) {
-            System.out.println(item.getProduct().getProductName() + " - " + item.getProduct().getPrice() + " TL");
+            System.out.println(item.getProduct().getProductName() + " - " + item.getPrice() + " TL");
         }
     }
+
+
 
 
 }

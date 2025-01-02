@@ -22,7 +22,7 @@ public class Product {
     private String color;
     private String material;
     private String armType;
-    private Integer length;
+    private String length;
     private int stock;
     private String manufacturer;
     private List<Integer> ratingList;
@@ -31,7 +31,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(String productName, String category, Integer price, String size, String color, String material, String armType, Integer length, int stock, String manufacturer) {
+    public Product(String productName, String category, Integer price, String size, String color, String material, String armType, String length, int stock, String manufacturer) {
         //super(ürünAdı, kategori, fiyat, beden, renk, malzeme, kolTipi, boyUzunlugu, stokDurumu, uretici);
 
         this.productName = productName;
@@ -113,11 +113,11 @@ public class Product {
         this.armType = armType;
     }
 
-    public Integer getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(String length) {
         this.length = length;
     }
 

@@ -22,11 +22,6 @@ public interface ZICartService {
     // Satın alınan ürünlerin stoklarını güncelleme
     void updateProductStock(Cart cart);
 
-    // Ürüne yıldız verme işlemi
-    void giveStar();
-
-    // Ürüne yorum yapma işlemi
-    void addComment();
 
     // Sepetteki ürünleri listeleme
     void listCart(List<CartItem> cartItemList);

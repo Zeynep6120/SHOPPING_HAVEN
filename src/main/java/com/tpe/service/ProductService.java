@@ -48,7 +48,7 @@ public class ProductService extends HelperMethods implements ZIProductService{
             System.out.print("Product arm type: ");
             product.setArmType(sc.nextLine().toUpperCase().trim());
             System.out.print("Product length: ");
-            product.setLength(sc.nextInt());
+            product.setLength(sc.nextLine().toUpperCase().trim());
             sc.nextLine();
 
             //Ürün Teknik Alanı
@@ -104,10 +104,10 @@ public class ProductService extends HelperMethods implements ZIProductService{
         boolean found = false;
 
         // Başlık yazdırma (Tablo başlıkları)
-        System.out.printf("\033[1;34m+------------------------------------------------------------+\n");
-        System.out.printf("| %-12s | %-10s | %-10s | %-12s | %-5s | %-8s |\n",
-                "Product Code", "Product Name", "Manufacturer", "Stock Status", "Price", "Category");
-        System.out.printf("+------------------------------------------------------------+\n");
+        // Başlık yazdırma (Tablo başlıkları)
+        System.out.println("\033[1;34m+------------------------------------------------------------+");
+        System.out.println("| Product Code  | Product Name | Manufacturer | Stock Status  | Price | Category |");
+        System.out.println("+------------------------------------------------------------+");
 
 
         for (Product product : productList) {
@@ -187,15 +187,18 @@ public class ProductService extends HelperMethods implements ZIProductService{
             switch (select) {
                 case 1: // Quantity göre sıralama
                     maximum(productList);
+
                     break;
                 case 2: // Ürün ismine göre sıralama
                     sortAorZ(productList);
+
                     break;
                 case 3: // Üretici ismine göre sıralama
                     sortByManufacturer(productList);
+
                     break;
                 case 4: // Çıkış
-                    System.out.println("Exiting the sorting menu.");
+
                     break;
             }
 
@@ -229,10 +232,9 @@ public class ProductService extends HelperMethods implements ZIProductService{
         boolean found = false;
 
         // Başlık yazdırma (Tablo başlıkları)
-        System.out.printf("\033[1;34m+------------------------------------------------------------+\n");
-        System.out.printf("| %-10s | %-8s | %-8s | %-12s | %-5s | %-8s |\n",
-                "Product Code", "Product Name", "Manufacturer", "Stock Status", "Price", "Category");
-        System.out.printf("+------------------------------------------------------------+\n");
+        System.out.println("\033[1;34m+------------------------------------------------------------+");
+        System.out.println("| Product Code | Product Name | Manufacturer  | Stock Status  | Price  | Category  |");
+        System.out.println("+------------------------------------------------------------+");
 
 
 

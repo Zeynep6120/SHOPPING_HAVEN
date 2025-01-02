@@ -49,12 +49,16 @@ public class AdminService implements ZIAdminService {
         String email = scanner.nextLine();
         if (!adminList.stream().map(Admin::getEmail).toList().contains(email) ){
             System.out.println("There is no such admin with this email, please register first.");
+            register();
         }
+        System.out.println("Enter your email :");
+        email = scanner.nextLine().trim(); // Yeni e-posta iste
 
         System.out.println("Enter your password :");
-        String password = scanner.nextLine();
+        String password = scanner.nextLine().trim();
 
-        Admin admin = adminList.stream().filter(t-> t.getEmail().equals(email)).findFirst().orElse(null);
+        String finalEmail = email;
+        Admin admin = adminList.stream().filter(t-> t.getEmail().equals(finalEmail)).findFirst().orElse(null);
         if (admin!=null && !(admin.getPassword().equals(password))){
             System.out.println("Password incorrect");
             adminMenu();
@@ -79,7 +83,7 @@ public class AdminService implements ZIAdminService {
                     break;
                 case 2:
                     System.out.print("Enter the product code:");
-                    String productCode = scanner.nextLine().trim();
+                    String productCode = scanner.nextLine().trim( );
                     productService.listIdProduct(productCode);
                     break;
                 case 3:

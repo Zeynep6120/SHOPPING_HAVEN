@@ -29,7 +29,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
             System.out.println("2-Search by Product Name");
             System.out.println("3-Filter Products (max, min, A to Z)");
             System.out.println("4-Select Product and Add to Shopping Cart");
-            System.out.println("5-Product Review and Rating");
+
             System.out.println("0-EXIT");
 
             int select = input.nextInt();
@@ -48,9 +48,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
                 case 4:
                     cartService.addToCart(customer);
                     break;
-                case 5:
-                    cartService.giveStar();
-                    break;
+
                 case 0:
                     System.out.println("Have a nice day...");
                     isExist = true;
@@ -128,57 +126,65 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
     }
 
     public void register() {
-        System.out.println(GREEN + "Enter your name:" + RESET);
-        String name = validateStringNotEmpty(input.nextLine().trim(), "Name cannot be empty!");
-
+        System.out.println(GREEN + "Enter your email to register:" + RESET);
         String email;
         boolean isValidEmail;
+
         do {
-            System.out.println(GREEN + "Enter your email:" + RESET);
-            email = input.nextLine();
+            email = input.nextLine().trim();
             isValidEmail = validateEmail(email);
+
+            // Kullanıcı kontrolü
             String finalEmail = email;
-            User customer = customerList.stream().filter(t -> t.getUserEmail().equals(finalEmail)).findAny().orElse(null);
-            if (customer != null) {
+            User existingUser = customerList.stream()
+                    .filter(t -> t.getUserEmail().equals(finalEmail))
+                    .findAny()
+                    .orElse(null);
+
+            if (existingUser != null) {
                 System.out.println(RED + "There is already a registered user with this email!" + RESET);
-                isValidEmail = false;
+                System.out.println(CYAN + "Redirecting to login. Please log in using your credentials." + RESET);
+                login(); // Kullanıcı kayıtlıysa login'e yönlendir
+                return;  // Kayıt işlemini sonlandır
             }
         } while (!isValidEmail);
+
+        System.out.println(GREEN + "Enter your name:" + RESET);
+        String name = validateStringNotEmpty(input.nextLine().trim(), "Name cannot be empty!");
 
         String password;
         do {
             System.out.println(GREEN + "Create your password:" + RESET);
-            password = scanner.nextLine().trim();
+            password = input.nextLine().trim();
         } while (!validatePassword(password));
 
         System.out.println(GREEN + "Enter your surname:" + RESET);
-        String lastname = validateStringNotEmpty(scanner.nextLine().trim(), "Surname cannot be empty!");
+        String lastname = validateStringNotEmpty(input.nextLine().trim(), "Surname cannot be empty!");
 
         System.out.println(GREEN + "Enter your phone number (ex: 555-123-4567):" + RESET);
-        String phoneNo = validatePhone(scanner.nextLine().trim());
+        String phoneNo = validatePhone(input.nextLine().trim());
 
         System.out.println(GREEN + "Enter city information:" + RESET);
-        String city = validateStringNotEmpty(scanner.nextLine().trim(), "City information cannot be empty!");
+        String city = validateStringNotEmpty(input.nextLine().trim(), "City information cannot be empty!");
 
         System.out.println(GREEN + "Enter country information:" + RESET);
-        String country = validateStringNotEmpty(scanner.nextLine().trim(), "Country information cannot be empty!");
+        String country = validateStringNotEmpty(input.nextLine().trim(), "Country information cannot be empty!");
 
         System.out.println(GREEN + "Enter street information:" + RESET);
-        String street = validateStringNotEmpty(scanner.nextLine().trim(), "Street information cannot be empty!");
+        String street = validateStringNotEmpty(input.nextLine().trim(), "Street information cannot be empty!");
 
         System.out.println(GREEN + "Enter postal code:" + RESET);
-        String zipcode = validateStringNotEmpty(scanner.nextLine().trim(), "Postcode cannot be empty!");
+        String zipcode = validateStringNotEmpty(input.nextLine().trim(), "Postcode cannot be empty!");
 
         Address address = new Address(city, country, street, zipcode);
         addressList.add(address);
 
-        // Kullanıcı oluşturuluyor ve müşteri listesine ekleniyor.
-        User user = new User( name,  lastname,  email, password, phoneNo,  address);
-        customerList.add(user);  // Müşteri doğru şekilde listeye eklenmeli
+        // Yeni kullanıcı oluşturuluyor
+        User user = new User(name, lastname, email, password, phoneNo, address);
+        customerList.add(user);
 
-        System.out.println(CYAN + "Dear " + name + ", Your registration has been completed successfully." + RESET);
+        System.out.println(CYAN + "Dear " + name + ", your registration has been completed successfully." + RESET);
         System.out.println(CYAN + "You can use your email and password to log in to the system." + RESET);
     }
-
 
 }
