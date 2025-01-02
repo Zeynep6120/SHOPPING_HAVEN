@@ -79,7 +79,7 @@ public class AdminService implements ZIAdminService {
                     break;
                 case 2:
                     System.out.print("Enter the product code:");
-                    String productCode = scanner.nextLine();
+                    String productCode = scanner.nextLine().trim();
                     productService.listIdProduct(productCode);
                     break;
                 case 3:

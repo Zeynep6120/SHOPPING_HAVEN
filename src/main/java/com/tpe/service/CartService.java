@@ -9,47 +9,44 @@ public class CartService implements ZICartService{
     Scanner scanner = new Scanner(System.in);
     private final ProductService productService = ProductService.getInstance();
     private  List<Cart> cartList = new ArrayList<>();
-    Cart cart;
+     public Cart cart;
     // Sepete ürün ekleme
     public void addToCart(User customer) {
         List<CartItem> cartItemList = new ArrayList<>();
-        boolean continueAdding = true;  // Kullanıcının ürün eklemeye devam edip etmeyeceğini kontrol etmek için
+        boolean continueAdding = true;
 
         while (continueAdding) {
             productService.listProduct();  // Ürünleri listele
             System.out.println("Please enter the product code of the item you want:");
-            String productCode = scanner.nextLine();  // Kullanıcıdan ürün kodunu al
-            Product selectedProduct = productService.findProductById(productCode);  // Ürünü bul
+            String productCode = scanner.nextLine().trim();
+            Product selectedProduct = productService.findProductById(productCode);
 
-            // Ürün bulunamadıysa döngüye devam et
             if (selectedProduct == null) {
                 System.out.println("Invalid product code. Please try again.");
                 continue;
             }
 
             System.out.println("Please enter the amount you wish to add:");
-            Integer quantity = scanner.nextInt();  // Kullanıcıdan miktar al
+            Integer quantity = scanner.nextInt();
             scanner.nextLine();  // Satır sonrasındaki boşluğu temizle
 
             CartItem cartItem = new CartItem(selectedProduct, quantity, selectedProduct.getPrice());
             cartItemList.add(cartItem);  // Sepete ürün ekle
 
             String deliveryPrice = cartItem.getPrice() < 500 ? "50" : "0";  // Kargo ücreti hesapla
-            Cart cart = new Cart(cartItemList, LocalDate.now(), deliveryPrice);
+            cart = new Cart(cartItemList, LocalDate.now(), deliveryPrice);  // Global cart'ı güncelle
 
             System.out.println("Product added to cart: " + selectedProduct.getProductName());
             listCart(cartItemList);  // Sepetteki ürünleri listele
 
-            // Kullanıcıya başka ürün eklemek isteyip istemediğini sor
             System.out.println("Do you want to add another product to your cart? (yes/no):");
-            String response = scanner.nextLine();
+            String response = scanner.nextLine().trim();
             if (response.equalsIgnoreCase("no")) {
-                continueAdding = false;  // "no" cevabı alınca döngüyü sonlandır
+                continueAdding = false;
             }
         }
 
-        // Sepetle ödeme işlemi
-        payment(customer, cart);
+        payment(customer, cart);  // Artık cart değişkeni null olmayacak
     }
 
     public void payment(User customer, Cart cart) {

@@ -209,8 +209,14 @@ public class ProductService extends HelperMethods implements ZIProductService{
 
 
     public Product findProductById(String productCode) {
-        return productList.stream().filter(t->t.getProductCode().equalsIgnoreCase(productCode)).findAny().orElse(null); // Eğer ürün varsa döner, yoksa null
+        for (Product product : productList) {
+            if (product.getProductCode().equals(productCode)) {
+                return product;  // Güncel stok bilgisiyle ürünü döndür
+            }
+        }
+        return null; // Ürün bulunamadı
     }
+
 
     public void searchProductByName() {
         Scanner scanner = new Scanner(System.in);

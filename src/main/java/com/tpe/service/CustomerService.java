@@ -64,7 +64,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
     public User login() {
         System.out.println("Please login before you can see the menu");
         System.out.println(YELLOW + "Email:" + RESET);
-        String email = scanner.nextLine();
+        String email = scanner.nextLine().trim();
 
         User customer = customerList.stream().filter(t->t.getUserEmail().equals(email)).findAny().orElse(null);
 
@@ -74,7 +74,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
 
             while (!isSuccess && attempts > 0) {
                 System.out.println(YELLOW + "Enter your password:" + RESET);
-                String password = scanner.nextLine();
+                String password = scanner.nextLine().trim();
 
                 if (customer.getUserPassword().equals(password)) {
                     System.out.println(GREEN + "You have successfully logged into the system. Welcome!" + RESET);
@@ -121,7 +121,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
 
     public void register() {
         System.out.println(GREEN + "Enter your name:" + RESET);
-        String name = validateStringNotEmpty(input.nextLine(), "Name cannot be empty!");
+        String name = validateStringNotEmpty(input.nextLine().trim(), "Name cannot be empty!");
 
         String email;
         boolean isValidEmail;
@@ -140,26 +140,26 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
         String password;
         do {
             System.out.println(GREEN + "Create your password:" + RESET);
-            password = scanner.nextLine();
+            password = scanner.nextLine().trim();
         } while (!validatePassword(password));
 
         System.out.println(GREEN + "Enter your surname:" + RESET);
-        String lastname = validateStringNotEmpty(scanner.nextLine(), "Surname cannot be empty!");
+        String lastname = validateStringNotEmpty(scanner.nextLine().trim(), "Surname cannot be empty!");
 
         System.out.println(GREEN + "Enter your phone number (ex: 555-123-4567):" + RESET);
-        String telefonNo = validatePhone(scanner.nextLine());
+        String telefonNo = validatePhone(scanner.nextLine().trim());
 
         System.out.println(GREEN + "Enter city information:" + RESET);
-        String city = validateStringNotEmpty(scanner.nextLine(), "City information cannot be empty!");
+        String city = validateStringNotEmpty(scanner.nextLine().trim(), "City information cannot be empty!");
 
         System.out.println(GREEN + "Enter country information:" + RESET);
-        String country = validateStringNotEmpty(scanner.nextLine(), "Country information cannot be empty!");
+        String country = validateStringNotEmpty(scanner.nextLine().trim(), "Country information cannot be empty!");
 
         System.out.println(GREEN + "Enter street information:" + RESET);
-        String street = validateStringNotEmpty(scanner.nextLine(), "Street information cannot be empty!");
+        String street = validateStringNotEmpty(scanner.nextLine().trim(), "Street information cannot be empty!");
 
         System.out.println(GREEN + "Enter postal code:" + RESET);
-        String zipcode = validateStringNotEmpty(scanner.nextLine(), "Postcode cannot be empty!");
+        String zipcode = validateStringNotEmpty(scanner.nextLine().trim(), "Postcode cannot be empty!");
 
         Address address = new Address(city, country, street, zipcode);
         addressList.add(address);
