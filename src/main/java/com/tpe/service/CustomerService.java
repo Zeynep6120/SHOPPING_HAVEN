@@ -18,9 +18,10 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
     private List<User> customerList = new ArrayList<>();
     private List<Address> addressList = new ArrayList<>();
     private final ProductService productService = ProductService.getInstance();
-    private final CartService cartService = new CartService();
+    public CartService cartService =new CartService();
+
     public void customerMenu() {
-        User customer = login();
+        User customer = login();  // Giriş yaptıktan sonra customer objesi alınır
         boolean isExist = false;
         while (!isExist) {
             System.out.println("========================================================");
@@ -66,9 +67,10 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
         System.out.println(YELLOW + "Email:" + RESET);
         String email = scanner.nextLine().trim();
 
-        User customer = customerList.stream().filter(t->t.getUserEmail().equals(email)).findAny().orElse(null);
+        // Müşteri listesinde e-posta ile eşleşen kullanıcıyı buluyoruz
+        User customer = customerList.stream().filter(t -> t.getUserEmail().equals(email)).findAny().orElse(null);
 
-        if (customer!=null) {
+        if (customer != null) {
             boolean isSuccess = false;
             int attempts = 3;
 
@@ -83,7 +85,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
                 } else {
                     attempts--;
                     if (attempts == 0) {
-                        System.out.println(RED + "\"You have logged in incorrectly 3 times! You are being redirected to the main menu." + RESET);
+                        System.out.println(RED + "You have logged in incorrectly 3 times! You are being redirected to the main menu." + RESET);
                     } else {
                         System.out.println(RED + "Password is incorrect. Your remaining rights are: " + attempts + RESET);
                     }
@@ -97,6 +99,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
         return customer;
     }
 
+
     public void displayUserTable(User registeredUser) {
 
         if (registeredUser != null) {
@@ -107,11 +110,12 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
 
             // Kullanıcı bilgilerini tablo formatında yazdırma
             System.out.printf("| %-5d | %-15s | %-15s | %-15s | %-10s | %-15s |\n",
-                    registeredUser.getUserId(),
+
                     registeredUser.getUserName(),
                     registeredUser.getUserLastname(),
-                    registeredUser.getUserPhone(),
                     registeredUser.getUserEmail(),
+                    registeredUser.getUserPhone(),
+
                     registeredUser.getAddress().toString()); // Adresin formatlı çıktısı
             System.out.println("------------------------------------------------------------------------");
         } else {
@@ -130,8 +134,8 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
             email = input.nextLine();
             isValidEmail = validateEmail(email);
             String finalEmail = email;
-            User customer = customerList.stream().filter(t-> t.getUserEmail().equals(finalEmail)).findAny().orElse(null);
-            if (customer!=null) {
+            User customer = customerList.stream().filter(t -> t.getUserEmail().equals(finalEmail)).findAny().orElse(null);
+            if (customer != null) {
                 System.out.println(RED + "There is already a registered user with this email!" + RESET);
                 isValidEmail = false;
             }
@@ -147,7 +151,7 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
         String lastname = validateStringNotEmpty(scanner.nextLine().trim(), "Surname cannot be empty!");
 
         System.out.println(GREEN + "Enter your phone number (ex: 555-123-4567):" + RESET);
-        String telefonNo = validatePhone(scanner.nextLine().trim());
+        String phoneNo = validatePhone(scanner.nextLine().trim());
 
         System.out.println(GREEN + "Enter city information:" + RESET);
         String city = validateStringNotEmpty(scanner.nextLine().trim(), "City information cannot be empty!");
@@ -164,11 +168,13 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
         Address address = new Address(city, country, street, zipcode);
         addressList.add(address);
 
-        User user = new User(customerList.size() + 1, name, lastname, telefonNo, email, password, address);
-        customerList.add(user);
+        // Kullanıcı oluşturuluyor ve müşteri listesine ekleniyor.
+        User user = new User( name,  lastname,  email, password, phoneNo,  address);
+        customerList.add(user);  // Müşteri doğru şekilde listeye eklenmeli
 
         System.out.println(CYAN + "Dear " + name + ", Your registration has been completed successfully." + RESET);
         System.out.println(CYAN + "You can use your email and password to log in to the system." + RESET);
-
     }
+
+
 }
