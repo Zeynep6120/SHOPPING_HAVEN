@@ -104,19 +104,23 @@ public class CustomerService extends ValidationMethods implements ZICustomerServ
 
         if (registeredUser != null) {
             // Tablo başlıkları
-            System.out.println(BLUE + "\n---------------------------- User Information ----------------------------" + RESET);
-            System.out.printf("| %-5s | %-15s | %-15s | %-15s | %-10s | %-15s |\n", "ID", " Name", "Last Name", "Phone", "Email",  "Address");
-            System.out.println("------------------------------------------------------------------------");
+            System.out.printf("---------------------------- User Information ----------------------------\n");
+            System.out.printf("| %-15s | %-15s | %-15s | %-20s |\n", "Name", "Last Name", "Phone", "Email");
+            System.out.printf("------------------------------------------------------------------------\n");
 
-            // Kullanıcı bilgilerini tablo formatında yazdırma
-            System.out.printf("| %-5d | %-15s | %-15s | %-15s | %-10s | %-15s |\n",
-
+            // Kullanıcı bilgilerini yazdırma
+            System.out.printf("| %-15s | %-15s | %-15s | %-20s |\n",
                     registeredUser.getUserName(),
                     registeredUser.getUserLastname(),
-                    registeredUser.getUserEmail(),
                     registeredUser.getUserPhone(),
+                    registeredUser.getUserEmail());
 
-                    registeredUser.getAddress().toString()); // Adresin formatlı çıktısı
+            System.out.printf("------------------------------------------------------------------------\n");
+
+            // Kullanıcının adres bilgilerini formatlı şekilde yazdırma
+            if (registeredUser.getAddress() != null) {
+                System.out.println("Address: " + registeredUser.getAddress().toString());
+            }
             System.out.println("------------------------------------------------------------------------");
         } else {
             System.out.println(RED + "User information not found!" + RESET);

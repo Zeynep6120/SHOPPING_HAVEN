@@ -129,17 +129,16 @@ public class ProductService extends HelperMethods implements ZIProductService{
     public void listProduct() {
 
         // Başlık yazdırma (Tablo başlıkları)
-        System.out.printf("\033[1;34m+------------------------------------------------------------+\n");
-        System.out.printf("| %-10s | %-8s | %-8s | %-12s | %-5s | %-8s |\n",
-                "Product Code", "Product Name", "Manufacturer", "Stock Status", "Price", "Category");
-        System.out.printf("+------------------------------------------------------------+\n");
-
+        System.out.println("\033[1;34m+------------------------------------------------------------+");
+        System.out.println("| Product Code | Product Name | Manufacturer | Stock Status | Price | Category |");
+        System.out.println("+------------------------------------------------------------+");
 
         for (Product product : productList) {
             System.out.printf("| %-10s | %-8s | %-8s | %-12d | %-5d | %-8s |%n", product.getProductCode(), product.getProductName(), product.getManufacturer(), product.getStock(), product.getPrice(), product.getCategory());
         }
         System.out.println("+------------------------------------------------------------+");
     }
+
     //System.out.println("4- id si verilen ürünü silme ");
     // Ürün Silme
     public void deleteProductById() {
