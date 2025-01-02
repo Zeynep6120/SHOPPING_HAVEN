@@ -5,7 +5,7 @@ import com.tpe.domain.Product;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ProductService extends HelperMethods{
+public class ProductService extends HelperMethods implements ZIProductService{
 
     private static ProductService instance; // Singleton örneği
     public List<Product> productList = new ArrayList<>();

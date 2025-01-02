@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CustomerService extends ValidationMethods{
+public class CustomerService extends ValidationMethods implements ZICustomerService{
     public Scanner input = new Scanner(System.in);
     private final String RESET = "\033[0m";
     private final String RED = "\033[31m";
@@ -97,7 +97,7 @@ public class CustomerService extends ValidationMethods{
         return customer;
     }
 
-    private void displayUserTable(User registeredUser) {
+    public void displayUserTable(User registeredUser) {
 
         if (registeredUser != null) {
             // Tablo başlıkları

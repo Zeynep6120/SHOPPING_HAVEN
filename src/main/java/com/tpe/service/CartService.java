@@ -5,7 +5,7 @@ import com.tpe.domain.*;
 import java.time.LocalDate;
 import java.util.*;
 
-public class CartService {
+public class CartService implements ZICartService{
     Scanner scanner = new Scanner(System.in);
     private final ProductService productService = ProductService.getInstance();
     private  List<Cart> cartList = new ArrayList<>();
@@ -85,7 +85,7 @@ public class CartService {
     }
 
     // Kredi Kartı ile ödeme işlemi
-    private void creditCardPayment(User customer, Cart cart) {
+    public void creditCardPayment(User customer, Cart cart) {
         // Kredi kartı bilgileri burada işlenebilir
         System.out.println("You selected Credit Card payment.");
         // Ödeme işlemi başarıyla tamamlandı
@@ -96,7 +96,7 @@ public class CartService {
     }
 
     // Kapıda Ödeme ile ödeme işlemi
-    private void cashOnDeliveryPayment(User customer, Cart cart) {
+    public void cashOnDeliveryPayment(User customer, Cart cart) {
         // Kapıda ödeme ile ilgili işlemler burada yapılabilir
         System.out.println("You selected Cash on Delivery.");
         // Ödeme işlemi başarıyla tamamlandı
@@ -107,7 +107,7 @@ public class CartService {
     }
 
     // Satın alınan ürünlerin stok durumunu güncelleme
-    private void updateProductStock(Cart cart) {
+    public void updateProductStock(Cart cart) {
         // Tablo başlıkları
         System.out.printf("%-25s%-20s%-20s%-20s\n", "Product Name", "Current Stock", "Quantity Purchased", "Updated Stock");
         System.out.println("-------------------------------------------------------------------------------------------------------");

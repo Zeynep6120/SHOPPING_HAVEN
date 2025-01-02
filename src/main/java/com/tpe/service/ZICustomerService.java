@@ -11,7 +11,5 @@ public interface ZICustomerService {
 
     void displayUserTable(User registeredUser); // Display the user's information in a table format.
 
-    void giveStar(); // Give a rating to a product.
 
-    void addComment(); // Add a comment to a product
 }

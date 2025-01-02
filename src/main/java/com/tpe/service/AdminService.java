@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AdminService {
+public class AdminService implements ZIAdminService {
     Scanner scanner = new Scanner(System.in);
     private List<Admin> adminList = new ArrayList<>();
     private final ProductService productService = ProductService.getInstance();

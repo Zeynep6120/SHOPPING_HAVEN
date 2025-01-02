@@ -2,7 +2,7 @@ package com.tpe.service;
 
 import java.util.Scanner;
 
-public class ValidationMethods {
+public class ValidationMethods implements  ZIValidationMethods{
 
     Scanner scanner = new Scanner(System.in);
     private final String RESET = "\033[0m";

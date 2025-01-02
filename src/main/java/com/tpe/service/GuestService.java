@@ -2,11 +2,11 @@ package com.tpe.service;
 
 import java.util.Scanner;
 
-public class GuestService {
+public class GuestService implements ZIGuestService{
 
     Scanner input = new Scanner(System.in);
     private final ProductService productService = ProductService.getInstance();
-    private final CustomerService customerService = new CustomerService();
+    public  CustomerService customerService = new CustomerService();
     public void guestMenu() {
         boolean isExist = false;
         while (!isExist) {

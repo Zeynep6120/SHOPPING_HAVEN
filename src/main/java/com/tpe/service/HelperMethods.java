@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class HelperMethods{
+public class HelperMethods implements ZIHelperMethods{
 
     // Ürün ID'sini oluşturur
     public void createProductId(Product product) {
