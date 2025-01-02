@@ -49,7 +49,6 @@ public class ProductService extends HelperMethods implements ZIProductService{
             product.setArmType(sc.nextLine().toUpperCase().trim());
             System.out.print("Product length: ");
             product.setLength(sc.nextLine().toUpperCase().trim());
-            sc.nextLine();
 
             //Ürün Teknik Alanı
             System.out.print("Product stock: ");
